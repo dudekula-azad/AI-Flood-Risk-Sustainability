@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AI Flood Risk & Sustainability</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f8fb;
+        }
+
+        header {
+            background-color: #1f6f8b;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        section {
+            padding: 20px;
+            margin: 20px;
+            background-color: white;
+            border-radius: 6px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #1f6f8b;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #15576a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>AI-Based Flood Risk Prediction</h1>
+    <p>Supporting Sustainable Water Management (SDG 13)</p>
+</header>
+
+<section>
+    <h2>Flood Risk Prediction</h2>
+
+    <label>Rainfall (mm in last 24 hours):</label><br><br>
+    <input type="number" id="rainfall" placeholder="Enter rainfall"><br><br>
+
+    <button onclick="predictRisk()">Predict Flood Risk</button>
+
+    <h3 id="result"></h3>
+    <p id="advice"></p>
+</section>
+
+<section>
+    <h2>Responsible AI</h2>
+    <p>
+        This project uses transparent, rule-based AI logic for educational purposes.
+        No personal data is collected, and the system provides recommendations only.
+    </p>
+</section>
+
+<footer>
+    <p>AI for Sustainability Project | IBM SkillsBuild Internship</p>
+</footer>
+
+<script>
+    function predictRisk() {
+        const rainfall = Number(document.getElementById("rainfall").value);
+
+        let risk = "";
+        let advice = "";
+
+        if (isNaN(rainfall)) {
+            risk = "Invalid Input";
+            advice = "Please enter a rainfall value.";
+        } else if (rainfall >= 200) {
+            risk = "HIGH Flood Risk";
+            advice = "Inspect drainage systems, reduce reservoir discharge, and issue community alerts.";
+        } else if (rainfall >= 100) {
+            risk = "MEDIUM Flood Risk";
+            advice = "Monitor water levels closely and prepare emergency response teams.";
+        } else {
+            risk = "LOW Flood Risk";
+            advice = "Maintain regular water management and monitoring.";
+        }
+
+        document.getElementById("result").innerText = "Prediction: " + risk;
+        document.getElementById("advice").innerText = advice;
+    }
+</script>
+
+</body>
+</html>
