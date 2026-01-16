@@ -1,130 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>AI Flood Risk & Sustainability</title>
+<meta charset="UTF-8">
+<title>AI Climate Decision Support Dashboard</title>
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f4f8fb;
-        }
+<style>
+body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    margin: 0;
+    background-color: #eef4f8;
+}
 
-        header {
-            background-color: #1f6f8b;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
+header {
+    background: linear-gradient(90deg, #1f6f8b, #4fa3c7);
+    color: white;
+    padding: 35px;
+    text-align: center;
+}
 
-        section {
-            padding: 20px;
-            margin: 20px;
-            background-color: white;
-            border-radius: 6px;
-        }
+.dashboard {
+    max-width: 950px;
+    margin: auto;
+}
 
-        button {
-            padding: 10px 20px;
-            background-color: #1f6f8b;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+.card {
+    background-color: white;
+    padding: 25px;
+    margin: 25px 15px;
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+}
 
-        button:hover {
-            background-color: #15576a;
-        }
+button {
+    padding: 10px 22px;
+    background-color: #1f6f8b;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-right: 10px;
+}
 
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #ddd;
-        }
-    </style>
+button:hover {
+    background-color: #15576a;
+}
+
+.badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin: 6px 0;
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #d9e3ea;
+    margin-top: 30px;
+}
+</style>
 </head>
+
 <body>
 
 <header>
-    <h1>AI-Based Flood Risk Prediction</h1>
-    <p>Supporting Sustainable Water Management (SDG 13)</p>
+    <h1>AI-Based Climate Decision Support Dashboard</h1>
+    <p>Flood Risk • Water Sustainability • Climate Insights (SDG 13)</p>
 </header>
 
-<section>
-    <h2>Flood Risk Prediction</h2>
+<div class="dashboard">
 
-    <label>Rainfall (mm in last 24 hours):</label><br><br>
-    <input type="number" id="rainfall" placeholder="Enter rainfall"><br><br>
+<!-- FLOOD RISK AI -->
+<div class="card">
+<h2>🌊 Flood Risk Prediction (AI Model)</h2>
 
-    <button onclick="predictRisk()">Predict Flood Risk</button>
+<label>Rainfall (mm in last 24 hours):</label><br><br>
+<input type="number" id="rainfall" placeholder="Enter rainfall value"><br><br>
 
-    <h3 id="result"></h3>
-    <p id="advice"></p>
-</section>
+<button onclick="predictRisk()">Predict</button>
+<button onclick="resetApp()">Reset</button>
 
-<section>
-    <h2>Responsible AI</h2>
-    <p>
-        This project uses transparent, rule-based AI logic for educational purposes.
-        No personal data is collected, and the system provides recommendations only.
-    </p>
-</section>
-<section>
-    <h2>SDG Alignment</h2>
+<h3 id="result"></h3>
+<p id="confidence"></p>
+<p id="explanation"></p>
 
-    <p><strong>Primary SDG:</strong></p>
-    <ul>
-        <li><strong>SDG 13 – Climate Action</strong></li>
-    </ul>
+<h4>Recommended Actions</h4>
+<ul id="actions"></ul>
+</div>
 
-    <p>
-        This project supports SDG 13 by addressing climate-change–induced flooding.
-        By predicting flood risk early, the system helps communities and authorities
-        take preventive and adaptive actions to reduce climate-related damage.
-    </p>
+<!-- WATER STRESS AI -->
+<div class="card">
+<h2>💧 Water Stress Risk Estimator (AI Insight)</h2>
+<p id="waterStress"></p>
+</div>
 
-    <p><strong>Secondary SDGs:</strong></p>
-    <ul>
-        <li><strong>SDG 11 – Sustainable Cities and Communities</strong></li>
-        <li><strong>SDG 6 – Clean Water and Sanitation</strong></li>
-    </ul>
+<!-- CLIMATE INSIGHT AI -->
+<div class="card">
+<h2>🌍 AI Climate Trend Insight</h2>
+<p id="climateInsight"></p>
+</div>
 
-    <p>
-        Flood prediction contributes to safer cities and better water management,
-        supporting sustainable urban planning and responsible use of water resources.
-    </p>
-</section>
+<!-- SDG -->
+<div class="card">
+<h2>🎯 SDG Alignment</h2>
+<p><strong>Primary SDG:</strong> SDG 13 – Climate Action</p>
+<p><strong>Secondary SDGs:</strong> SDG 11 (Sustainable Cities), SDG 6 (Clean Water)</p>
+<p>
+This project supports climate adaptation by predicting flood risk, improving water
+resource planning, and increasing climate awareness through AI-driven insights.
+</p>
+</div>
+
+<!-- RESPONSIBLE AI -->
+<div class="card">
+<h2>⚖️ Responsible AI</h2>
+<p>
+This system uses transparent, explainable, rule-based AI logic.
+No personal data is collected. Predictions are advisory and support
+human decision-making.
+</p>
+</div>
+
+</div>
 
 <footer>
-    <p>AI for Sustainability Project | IBM SkillsBuild Internship</p>
+<p>AI for Sustainability Project | 1M1B – IBM SkillsBuild Internship</p>
 </footer>
 
 <script>
-    function predictRisk() {
-        const rainfall = Number(document.getElementById("rainfall").value);
+function predictRisk() {
+    const rainfall = Number(document.getElementById("rainfall").value);
 
-        let risk = "";
-        let advice = "";
+    const resultEl = document.getElementById("result");
+    const confidenceEl = document.getElementById("confidence");
+    const explanationEl = document.getElementById("explanation");
+    const actionsEl = document.getElementById("actions");
+    const waterStressEl = document.getElementById("waterStress");
+    const climateInsightEl = document.getElementById("climateInsight");
 
-        if (isNaN(rainfall)) {
-            risk = "Invalid Input";
-            advice = "Please enter a rainfall value.";
-        } else if (rainfall >= 200) {
-            risk = "HIGH Flood Risk";
-            advice = "Inspect drainage systems, reduce reservoir discharge, and issue community alerts.";
-        } else if (rainfall >= 100) {
-            risk = "MEDIUM Flood Risk";
-            advice = "Monitor water levels closely and prepare emergency response teams.";
-        } else {
-            risk = "LOW Flood Risk";
-            advice = "Maintain regular water management and monitoring.";
-        }
+    actionsEl.innerHTML = "";
 
-        document.getElementById("result").innerText = "Prediction: " + risk;
-        document.getElementById("advice").innerText = advice;
+    function addAction(text) {
+        const li = document.createElement("li");
+        li.innerText = "☐ " + text;
+        li.onclick = () => {
+            li.style.textDecoration = "line-through";
+            li.style.color = "gray";
+        };
+        actionsEl.appendChild(li);
     }
+
+    if (isNaN(rainfall) || rainfall < 0) {
+        resultEl.innerText = "Invalid Input";
+        resultEl.style.color = "black";
+        confidenceEl.innerText = "";
+        explanationEl.innerText = "Please enter a valid rainfall value.";
+        waterStressEl.innerText = "";
+        climateInsightEl.innerText = "";
+        return;
+    }
+
+    if (rainfall >= 200) {
+        resultEl.innerText = "HIGH Flood Risk";
+        resultEl.style.color = "red";
+        confidenceEl.innerText = "Prediction Confidence: High";
+        explanationEl.innerText =
+            "Very high rainfall exceeds safe thresholds, significantly increasing flood likelihood.";
+
+        addAction("Inspect drainage systems");
+        addAction("Issue community flood alerts");
+        addAction("Limit reservoir discharge");
+        addAction("Deploy emergency response teams");
+
+        waterStressEl.innerText =
+            "Water Stress Level: LOW (High water availability, flood surplus risk)";
+        climateInsightEl.innerText =
+            "AI Insight: Extreme rainfall patterns align with climate change-driven weather events.";
+    }
+    else if (rainfall >= 100) {
+        resultEl.innerText = "MEDIUM Flood Risk";
+        resultEl.style.color = "orange";
+        confidenceEl.innerText = "Prediction Confidence: Medium";
+        explanationEl.innerText =
+            "Moderate rainfall may overwhelm drainage systems in vulnerable regions.";
+
+        addAction("Monitor water levels");
+        addAction("Prepare response teams");
+        addAction("Check drainage blockages");
+
+        waterStressEl.innerText =
+            "Water Stress Level: MEDIUM (Uneven water distribution possible)";
+        climateInsightEl.innerText =
+            "AI Insight: Rainfall variability suggests increasing climate unpredictability.";
+    }
+    else {
+        resultEl.innerText = "LOW Flood Risk";
+        resultEl.style.color = "green";
+        confidenceEl.innerText = "Prediction Confidence: High";
+        explanationEl.innerText =
+            "Rainfall is within manageable limits for current water infrastructure.";
+
+        addAction("Continue routine monitoring");
+        addAction("Maintain drainage infrastructure");
+
+        waterStressEl.innerText =
+            "Water Stress Level: HIGH (Potential water scarcity)";
+        climateInsightEl.innerText =
+            "AI Insight: Low rainfall may indicate prolonged dry spells and rising climate stress.";
+    }
+}
+
+function resetApp() {
+    document.getElementById("rainfall").value = "";
+    document.getElementById("result").innerText = "";
+    document.getElementById("confidence").innerText = "";
+    document.getElementById("explanation").innerText = "";
+    document.getElementById("actions").innerHTML = "";
+    document.getElementById("waterStress").innerText = "";
+    document.getElementById("climateInsight").innerText = "";
+}
 </script>
 
 </body>
